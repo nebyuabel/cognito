@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  trailingSlash: true,
+
   experimental: {
     serverComponentsExternalPackages: ["@supabase/supabase-js"],
   },
