@@ -4,8 +4,20 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
+interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  content_markdown: string;
+  cover_image_url: string;
+  created_at: string;
+  category: string;
+  is_published: boolean;
+  excerpt?: string;
+}
+
 export default function Home() {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -131,7 +143,7 @@ export default function Home() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {articles.map((article: any) => (
+                    {articles.map((article: Article) => (
                       <Link
                         key={article.id}
                         href={`/article/${encodeURIComponent(article.slug)}`}

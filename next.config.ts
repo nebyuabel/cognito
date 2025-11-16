@@ -1,36 +1,17 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: "export",
-  trailingSlash: true,
+import type { NextConfig } from "next";
 
-  experimental: {
-    serverComponentsExternalPackages: ["@supabase/supabase-js"],
-  },
+const nextConfig: NextConfig = {
+  // Remove output: 'export' for Vercel deployment
   images: {
-    domains: [
-      "static.vecteezy.com",
-      "lh3.googleusercontent.com",
-      "p16-amd-va.tiktokcdn.com",
-      "p77-amd-va.tiktokcdn.com",
-      "i.ytimg.com",
-      "vimeo.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
-  // Allow TikTok embed scripts
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value:
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.tiktok.com *.youtube.com *.vimeo.com;",
-          },
-        ],
-      },
-    ];
-  },
+  // Remove experimental config or update it
+  serverExternalPackages: ["@supabase/supabase-js"],
 };
 
-module.exports = nextConfig;
+export default nextConfig;
